@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 0.2.1
+ * Version: 0.2.2
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Give your customers the simplest Bitcoin checkout experience. Get paid in BTC, BCH, BSV, and DASH.
@@ -75,7 +75,7 @@ function init_anypay_gateway_class() {
       $this->has_fields = false;
       $this->description = 'Pay with Bitcoin via Anypay';
       $this->title = 'Anypay';
-      $this->icon =  plugins_url('icon-32X32.png', __FILE__ );
+      $this->icon =  plugins_url('anypayMark_256.svg', __FILE__ );
       $this->order_button_text = __('Pay with Digital Currency', 'woocommerce');
       $this->method_title = 'Anypay';
       $this->method_description = sprintf( 'The simplist and easiest way to accept Bitcoin at your Woocommerce store.' );;
@@ -154,80 +154,69 @@ function init_anypay_gateway_class() {
 	 *
 	 * @return bool was anything saved?
 	 */
-	function save_anypay_settings() {
+     function save_anypay_settings() {
+
+      $my_string = 'Save Settings';
+      do_action( 'php_console_log', $my_string );
+
 
       $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
       if( !$anypay_settings ){
 
-        $url = 'https://api.anypayinc.com/anonymous-accounts';
-
-        $result = wp_remote_post( $url );
-
-        $token  = sanitize_text_field(json_decode($result['body'])->access_token->uid);
-
         $anypay_settings = array();
 
-        $anypay_settings['access_token'] = $token;
-
       }
 
-      $address = sanitize_text_field( $_POST['woocommerce_wc_gateway_anypay_address'] );
+      $email = sanitize_email($_POST['woocommerce_wc_gateway_anypay_email']);
+      echo '<script>console.log("Email: ' . $email . '")</script>';
 
-      //Sets Anypay Address
-      $args = array(
-        'method' => 'PUT',
-        'body' => array(
-          'address'    => $address,
-          'currency' => 'BSV' 
-         ),
-        'headers' => array(
-          'Authorization' => 'Basic ' . base64_encode( $anypay_settings['access_token'] . ':')
-        )
-      );
+      $url = 'https://api.anypayinc.com/accounts/' . $email ;
 
-
-      $url = 'https://api.anypayinc.com/addresses/BSV';
-
-      $result = wp_remote_request( $url, $args );
+      $result = wp_remote_get( $url );
 
       if( $result['response']['code'] === 200 ){
+        echo '<script>console.log("' . $url . '")</script>';
 
-        $anypay_settings['address'] = $address;
+        $body = wp_remote_retrieve_body( $result );
+
+        echo '<script>console.log("BODY:")</script>';
+        echo '<script>console.log("' . $body . '")</script>';
+
+        $account = json_decode($body);
+
+        echo '<script>console.log("' . $account->id . '")</script>';
+
+        echo '<script>console.log("ANYPAY ACCOUNT CODE' .
+        $result['response']['code'] . '")</script>';
+
+        echo '<script>console.log("ANYPAY EMAIL' . $email . '")</script>';
+        $anypay_settings['email'] = $body->email;
+        echo '<script>console.log("ANYPAY ID: ' . $account->id . '")</script>';
+        $anypay_settings['account_id'] = $account->id;
+        $anypay_settings['coins'] = $body->coins;
+
+        $this->update_option('woocommerce_anypay_settings', $anypay_settings);
+        echo '<script>console.log("Settings: ' . $anypay_settings . '")</script>';
+
+      } else if( $result['response']['code'] === 404 ){
+        // not found
+        echo '<script>console.log("ANYPAY ACCOUNT NOT FOUND")</script>';
+        //$error_message = 'Anypay Account Not Found!'
+        echo '<script>alert("ANYPAY ACCOUNT NOT FOUND")</script>';
+        $anypay_settings['email'] = null;
+
+        unset($_POST);
+
+      } else {
+
+        echo '<script>console.log("ANYPAY ERROR")</script>';
 
       }
 
-      $business_name = sanitize_text_field($_POST['woocommerce_wc_gateway_anypay_merchant']);
+      //$this->update_option('woocommerce_anypay_settings', $anypay_settings);
 
-      $anypay_email = sanitize_email( $_POST['woocommerce_wc_gateway_anypay_email']);
-
-      $denomination = get_woocommerce_currency();
-
-      $args = array(
-        'method' => 'PUT',
-        'body' => array(
-          'denomination' => $denomination,
-          'business_name' => $business_name,
-          'email' => $anypay_email 
-        ),
-        'headers' => array(
-          'Authorization' => 'Basic ' . base64_encode( $anypay_settings['access_token'] . ':')
-        )
-      );
-
-      $result = wp_remote_request( 'https://api.anypayinc.com/account', $args );
-
-      if( $result['response']['code'] === 200 ){
-
-        $anypay_settings['email'] = $email;
-        $anypay_settings['business_name'] = $business_name;
-        $anypay_settings['denomination'] = $denomination;
-
-      }
-
-      $this->update_option('woocommerce_anypay_settings', $anypay_settings);
-
-    } 
+    }
 
     /**
 	 * Initialise Gateway Settings Form Fields.
@@ -235,48 +224,33 @@ function init_anypay_gateway_class() {
 	function init_form_fields() {
 
      $this->form_fields = array(
-        'enabled' => array(
-                    'title' => __('On/off', 'woocommerce'),
-                    'type' => 'checkbox',
-                    'label' => __('On', 'woocommerce'),
-                    'default' => 'yes'
-        ),
-		'address' => array(
-			'title'       => 'BSV Address',
-            'description' => 'bitcoins are sent here',
-            'type'        => 'text',
-            'default'     => '',
-		),
-        'merchant' => array(
-                    'title' => __('Store name', 'woocommerce'),
-                    'type' => 'text',
-                    'description' => __('', 'woocommerce'),
-                    'default' => ''
-        ),
         'email' => array(
-                    'title' => 'Email',
+                    'title' => 'Anypay Account Email',
                     'type' => 'text',
-                    'description' => 'Optional, Allow us to reach out! We want to help promote your website to BSV users and provide the best product possible',
+                    'description' => 'All payments will be sent to the coin addresses you set on your Anypay account. No
+                    account? <a target="_blank" href="https://anypayapp.com/registration">Register for free</a>',
                     'default' => '' 
         ),
 	  );
      }
 
      public function payment_fields() {
-              
-            $total = WC()->cart->total;
 
-            $currency = get_woocommerce_currency();
+       $anypay_settings = $this->get_option('woocommerce_anypay_settings');
+
+       echo '<script>console.log("Settings: ' . $anypay_settings->email . '")</script>';
 
             try {
 
-                $response = $this->anypay_convert($currency, $total);
+                $coins = $anypay_settings['coins'];
 
-                echo '<p class="pwe-eth-pricing-note"><strong>';
+                echo '<script>console.log("Coins: ' . $anypay_settings['coins'] . '")</script>';
 
-                printf( __( 'Payment of %s Bitcoin SV will be due.', 'anypay' ), $response );
+                //echo '<p class="pwe-eth-pricing-note"><strong>';
 
-                echo '</p></strong>';
+                //printf( __( 'Payment available in %s', implode(', ', $coins) ), $response );
+
+                //echo '</p></strong>';
 
             } catch ( \Exception $e ) {
 
@@ -301,13 +275,15 @@ function init_anypay_gateway_class() {
             
     }
 
-    public function anypay_convert($currency, $value){
+    public function anypay_coins($email){
 
-       $response = wp_remote_get("https://api.anypayinc.com/convert/{$value}-{$currency}/to-BSV"); 
+       echo '<script>console.log("Email: ' . $email . '")</script>';
+
+       $response = wp_remote_get("https://api.anypayinc.com/accounts/{$email}"); 
           
-       $price =  floatval(json_decode($response['body'])->conversion->output->value);
+       $coins =  json_decode($response['body'])->coins;
 
-       return  $price;
+       return  $coins;
 
     }
 
@@ -319,23 +295,31 @@ function init_anypay_gateway_class() {
 
        $order = new WC_Order( $order_id );
 
+      echo '<script>console.log("Order: ' . $order_id . '")</script>';
+
        $args = array(
          'body' => array(
            'amount' =>(float) $order->get_total(),
-           'currency' => 'BSV',
+           //'currency' => 'BSV',
            'redirect_url' => $this->get_return_url( $order ),
            'webhook_url' => home_url('/?wc-api=wc_gateway_anypay'), 
-           'address'     => $anypay_settings['address'],
            'external_id' => $order->get_id(),
          ),
          'headers' => array(
-           'Authorization' => 'Basic ' . base64_encode( $anypay_settings['access_token'] . ':')
-         )
+            'Authorization' => 'Basic ' . base64_encode( 'a:b')
+          )
        );
+       echo '<script>console.log("json: ' . json_encode($args) . '")</script>';
 
-       $url = 'https://api.anypayinc.com/invoices';
+
+       $url = 'https://api.anypayinc.com/accounts/' . $anypay_settings['account_id'] . '/invoices';
+
+       echo '<script>console.log("URL: ' . $url . '")</script>';
+       echo '<script>console.log("ACcount: ' . $anypay_settings['account_id'] . '")</script>';
 
        $result = wp_remote_post( $url, $args );
+
+       echo '<script>console.log("result: ' . $result . '")</script>';
 
        if( $result['response']['code'] === 200 ){
 
