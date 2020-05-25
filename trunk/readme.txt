@@ -36,6 +36,11 @@ President, Anypay Inc.
 
 == Changelog == 
 
+= 0.3.0 =
+
+  - Change registration to only support existing Anypay email addresses
+  - Old installations will need to enter their Anypay account email address to continue support
+
 = 0.2.0 =
 
   - Update README and descriptions to reflect multi-coin support

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 0.2.2
+ * Version: 0.3.0
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Give your customers the simplest Bitcoin checkout experience. Get paid in BTC, BCH, BSV, and DASH.
