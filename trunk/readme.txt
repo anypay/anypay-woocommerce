@@ -36,6 +36,10 @@ President, Anypay Inc.
 
 == Changelog == 
 
+= 0.3.1 =
+
+  - Remove comment of invalid object
+
 = 0.3.0 =
 
   - Change registration to only support existing Anypay email addresses
