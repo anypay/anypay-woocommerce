@@ -238,8 +238,6 @@ function init_anypay_gateway_class() {
 
        $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
-       echo '<script>console.log("Settings: ' . $anypay_settings->email . '")</script>';
-
             try {
 
                 $coins = $anypay_settings['coins'];
