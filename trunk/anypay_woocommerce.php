@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 0.3.1
+ * Version: 0.3.2
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Give your customers the simplest Bitcoin checkout experience. Get paid in BTC, BCH, BSV, and DASH.
@@ -75,10 +75,10 @@ function init_anypay_gateway_class() {
       $this->has_fields = false;
       $this->description = 'Pay with Bitcoin via Anypay';
       $this->title = 'Anypay';
-      $this->icon =  plugins_url('anypayMark_256.svg', __FILE__ );
+      $this->icon = 'https://media.bitcoinfiles.org/930e78aa667b009628455e78ec206df4bfa482c8b81def397db09ee150099fb9';
       $this->order_button_text = __('Pay with Digital Currency', 'woocommerce');
       $this->method_title = 'Anypay';
-      $this->method_description = sprintf( 'The simplist and easiest way to accept Bitcoin at your Woocommerce store.' );;
+      $this->method_description = sprintf( 'The simplest way to earn Bitcoin in your business.' );;
       $this->supports = array('products');
 
      	// Load the settings.
