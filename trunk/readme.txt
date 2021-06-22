@@ -36,6 +36,10 @@ President, Anypay Inc.
 
 == Changelog == 
 
+= 0.4.0 =
+
+  - Report Wordpress Site URL to Anypay
+
 = 0.3.1 =
 
   - Remove comment of invalid object

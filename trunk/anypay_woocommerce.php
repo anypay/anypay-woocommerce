@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 0.3.4
+ * Version: 0.4.0
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Give your customers the simplest Bitcoin checkout experience. Get paid in BTC, BCH, BSV, and DASH.
@@ -289,6 +289,7 @@ function init_anypay_gateway_class() {
 
        global $woocommerce;
 
+
        $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
        $order = new WC_Order( $order_id );
@@ -302,6 +303,7 @@ function init_anypay_gateway_class() {
            'redirect_url' => $this->get_return_url( $order ),
            'webhook_url' => home_url('/?wc-api=wc_gateway_anypay'), 
            'external_id' => $order->get_id(),
+           'wordpress_site_url' => get_site_url()
          ),
          'headers' => array(
             'Authorization' => 'Basic ' . base64_encode( 'a:b')
