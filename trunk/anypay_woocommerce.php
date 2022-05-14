@@ -72,18 +72,22 @@ function init_anypay_gateway_class() {
 
     public function __construct() {
 
+      $settings = $this->get_option('woocommerce_anypay_settings');
+      $account_id = $settings->account_id;
+
       $this->id = 'wc_gateway_anypay';
       $this->has_fields = false;
       $this->description = 'Pay with Bitcoin via Anypay';
       $this->title = 'Anypay';
-      $this->icon = 'https://bico.media/9aa6da6372c5a706339cf6d0e8343ff8d48e45f381bc3e3d4e126cc7f9e2a8bf.png';
+      //$this->icon = 'https://bico.media/9aa6da6372c5a706339cf6d0e8343ff8d48e45f381bc3e3d4e126cc7f9e2a8bf.png';
+      $this->icon = 'https://doge.bitcoinfiles.org/31bc517ddae2134408f15acd582606ffe493e4d3800e8a60250899c61ace9bb3';
       $this->order_button_text = __('Pay with Anypay', 'woocommerce');
       $this->method_title = 'Anypay';
       $this->method_description = sprintf( 'The simplest way to earn Bitcoin in your business.' );
       $this->supports = array('products');
 
      	// Load the settings.
-	  $this->init_form_fields();
+	    $this->init_form_fields();
       $this->init_settings();
 
       add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -197,6 +201,7 @@ function init_anypay_gateway_class() {
         $anypay_settings['account_id'] = $account->id;
         $anypay_settings['coins'] = $body->coins;
 
+        $this->update_option('anypay_account_id', $account->id);
         $this->update_option('woocommerce_anypay_settings', $anypay_settings);
         echo '<script>console.log("Settings: ' . $anypay_settings . '")</script>';
 

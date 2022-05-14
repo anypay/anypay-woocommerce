@@ -36,6 +36,10 @@ President, Anypay Inc.
 
 == Changelog == 
 
+= 0.6.0 =
+
+  - Use Anypay Logo on its own on Checkout Page instead of multi-coin logo
+
 = 0.5.1 =
 
   - Update supported version of wordpress tested to 5.9
