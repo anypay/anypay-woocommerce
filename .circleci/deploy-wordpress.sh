@@ -23,7 +23,7 @@ if [[ -z "$WP_ORG_USERNAME" ]]; then
     exit 1
 fi
 
-PLUGIN_SVN_PATH="/tmp/svn"
+PLUGIN_SVN_PATH="."
 
 # Checkout the SVN repo
 svn co -q "http://svn.wp-plugins.org/$WP_ORG_PLUGIN_NAME" $PLUGIN_SVN_PATH
