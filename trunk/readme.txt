@@ -3,11 +3,11 @@ Contributors: brandonbryant, stevenzeiler
 Tags: bitcoin, payments, BSV, cryptocurrency, satoshi, smallbusiness, ecommerce, business, sales, store, profit, commerce, crypto, DASH, BCH, bitcoincash, bitcoinsv, money, payments, easy, fast, free, cheap, instant, livefree, free, liberty, live, exchange, trade, value 
 Requires PHP: 5.6
 Requires at least: 4.0
-Tested up to: 5.2.2 
+Tested up to: 5.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Give your customers the simplest Bitcoin checkout experience. Get paid in BTC, BCH, BSV, and DASH.
+Give your customers the simplest Bitcoin checkout experience. Get paid in BSV from all the most popular wallets.
 
 Anypay isn’t just about giving you a simple way to accept bitcoin at your business. We believe that if bitcoin is ever going to become the world’s money, then it has to be easier, faster, and more civilized than all the alternatives.
 
@@ -35,6 +35,14 @@ President, Anypay Inc.
 == Frequently Asked Questions == 
 
 == Changelog == 
+
+= 0.5.1 =
+
+  - Update supported version of wordpress tested to 5.9
+
+= 0.5.0 =
+
+  - Direct payments to anypay.sv instead of anypayapp.com
 
 = 0.4.0 =
 
