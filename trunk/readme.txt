@@ -1,9 +1,9 @@
 === Anypay for WooCommerce ===
 Contributors: brandonbryant, stevenzeiler
-Tags: bitcoin, payments, BSV, cryptocurrency, satoshi, smallbusiness, ecommerce, business, sales, store, profit, commerce, crypto, DASH, BCH, bitcoincash, bitcoinsv, money, payments, easy, fast, free, cheap, instant, livefree, free, liberty, live, exchange, trade, value 
+Tags: bitcoin, payments, BSV, cryptocurrency, satoshi, smallbusiness, ecommerce, business, sales, store, profit, commerce, crypto, DASH, BCH, DOGE, bitcoincash, bitcoinsv, money, payments, easy, fast, free, cheap, instant, livefree, free, liberty, live, exchange, trade, value 
 Requires PHP: 5.6
 Requires at least: 4.0
-Tested up to: 5.9
+Tested up to: 6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
