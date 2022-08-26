@@ -234,7 +234,7 @@ function init_anypay_gateway_class() {
                     'title' => 'Anypay Account Email',
                     'type' => 'text',
                     'description' => 'All payments will be sent to the coin addresses you set on your Anypay account. No
-                    account? <a target="_blank" href="https://anypayapp.com/registration">Register for free</a>',
+                    account? <a target="_blank" href="https://anypayx.com/auth/register/">Register for free</a>',
                     'default' => '' 
         ),
 	  );
