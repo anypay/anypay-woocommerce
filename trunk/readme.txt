@@ -1,40 +1,27 @@
 === Anypay for WooCommerce ===
-Contributors: brandonbryant, stevenzeiler
-Tags: bitcoin, payments, BSV, cryptocurrency, satoshi, smallbusiness, ecommerce, business, sales, store, profit, commerce, crypto, DASH, BCH, DOGE, bitcoincash, bitcoinsv, money, payments, easy, fast, free, cheap, instant, livefree, free, liberty, live, exchange, trade, value 
+Contributors: brandonbryant, owenkellogg, eddiewillers
+Tags: bitcoin, payments, BSV, crypto, e-commerce, ecommerce, business, store, DASH, BCH, DOGE, bitcoinsv
 Requires PHP: 5.6
 Requires at least: 4.0
-Tested up to: 6.0
+Tested up to: 6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Give your customers the simplest Bitcoin checkout experience. Get paid in BSV from all the most popular wallets.
-
-Anypay isn’t just about giving you a simple way to accept bitcoin at your business. We believe that if bitcoin is ever going to become the world’s money, then it has to be easier, faster, and more civilized than all the alternatives.
-
-No more tap tap tapping credit card numbers. No more risking losing your identity to scammers. No more dealing with fraud prevention. And no more high fees to pay for all that nonsense.
-
-That stuff is over. We have bitcoin now.
-
-Look, your customers will go to the checkout page just as they normally do. It says “Credit card, PayPal,” and whatever other options you support. Then if you have this Anypay WooCommerce Extension activated, it will also give them the option to pay with bitcoin.
-
-They click the “Pay with Bitcoin” button. They scan a QR code. As soon as they sent payment, the screen throws confetti and says “Paid!” It’s delightful.
-
-You get an email informing you that you just got paid, and your customer gets redirected to your successful checkout screen.
-
-Where does the bitcoin go? To your wallet!
-
-Part of setting up Anypay is connecting your wallet (takes 2 seconds), and then all payments go straight from the customer’s phone to yours. You keep 100%. Anypay charges the customer an extra $0.05. That’s how we make our money.
-
-We believe bitcoin is the world’s best money. One day, everyone in the world will use it. We love to talk with our users, so if you have questions or just want to talk, email us or message us on Telegram.
-
-Proud to serve you,
-
-Derrick J Horton
-President, Anypay Inc.
-
 == Frequently Asked Questions == 
 
+Can I use this plugin to accept payments on my WordPress site in multiple different cryptocurrencies?
+
+A: Yes.
+
+What is the cost?
+
+A: The app is free to download. Payments are direct from customer's wallet to merchant's wallet. All payments are "multi-output" meaning they are split. 99.9% of a payment goes to the merchant. 
+
 == Changelog == 
+
+= 0.6.1 = 
+
+  - Updated API endpoint
 
 = 0.6.0 =
 

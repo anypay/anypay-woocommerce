@@ -1,10 +1,10 @@
 {
     "name": "anypay/woocommerce",
-    "description": "Give your customers the simplest Bitcoin checkout experience. Get paid in BSV from all the most popular wallets.",
+    "description": "Simple Bitcoin Checkout for WordPress. Instant. Peer-to-peer.",
     "authors": [
         {
-            "name": "Steven Zeiler",
-            "email": "steven@anypayinc.com"
+            "name": "AnypayX",
+            "email": "info@anypayx.com"
         }
     ],
     "require": {}
