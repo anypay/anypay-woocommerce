@@ -15,7 +15,7 @@
  * Tested up to: 6.1
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- */
+ **/
 
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return;
 
@@ -153,12 +153,12 @@ function init_anypay_gateway_class() {
 
 	}
 
-  /*
+  /**
 	 * Processes and saves options.
 	 * If there is an error thrown, will continue to save and validate fields, but will leave the erroring field out.
 	 *
 	 * @return bool was anything saved?
-	 */
+	 **/
      function save_anypay_settings() {
 
       $my_string = 'Save Settings';
