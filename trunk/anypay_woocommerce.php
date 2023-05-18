@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 0.6.1
+ * Version: 1.0.1
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Simple Bitcoin checkout. Multi-coin. Instant. Peer-to-peer.
@@ -11,8 +11,8 @@
  * Tags: bitcoin, payments, BSV
  * Requires PHP: 5.6
  * Requires at least: 4.0
- * Stable Tag: 0.6.1
- * Tested up to: 6.1
+ * Stable Tag: 1.0.1
+ * Tested up to: 6.2.1
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  **/
