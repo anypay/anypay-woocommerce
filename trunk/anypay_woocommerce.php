@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Anypay_WooCommerce
- * Version: 1.0.1
+ * Version: 0.6.2
  * Plugin Name: Anypay WooCommerce
  * Plugin URI: http://wordpress.org/plugins/anypay-woocommerce/
  * Description: Simple Bitcoin checkout. Multi-coin. Instant. Peer-to-peer.
@@ -11,7 +11,7 @@
  * Tags: bitcoin, payments, BSV
  * Requires PHP: 5.6
  * Requires at least: 4.0
- * Stable Tag: 1.0.1
+ * Stable Tag: 0.6.2
  * Tested up to: 6.2.1
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,8 +79,8 @@ function init_anypay_gateway_class() {
       $this->has_fields = false;
       $this->description = 'Pay with Bitcoin via Anypay';
       $this->title = 'Anypay';
-      //$this->icon = 'https://bico.media/9aa6da6372c5a706339cf6d0e8343ff8d48e45f381bc3e3d4e126cc7f9e2a8bf.png';
-      $this->icon = 'https://doge.bitcoinfiles.org/31bc517ddae2134408f15acd582606ffe493e4d3800e8a60250899c61ace9bb3';
+      $this->icon = 'https://bico.media/9aa6da6372c5a706339cf6d0e8343ff8d48e45f381bc3e3d4e126cc7f9e2a8bf';
+      //$this->icon = 'https://bico.media/31bc517ddae2134408f15acd582606ffe493e4d3800e8a60250899c61ace9bb3';
       $this->order_button_text = __('Pay with Anypay', 'woocommerce');
       $this->method_title = 'Anypay';
       $this->method_description = sprintf( 'Simple Bitcoin Checkout for WordPress.' );
