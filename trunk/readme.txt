@@ -1,5 +1,5 @@
 === Anypay for WooCommerce ===
-Contributors: brandonbryant, owenkellogg, eddiewillers
+Contributors: brandonbryant, stevenzeiler, eddiewillers
 Tags: bitcoin, payments, BSV, crypto, e-commerce, ecommerce, business, store, DASH, BCH, DOGE, bitcoinsv
 Requires PHP: 5.6
 Requires at least: 4.0
@@ -71,7 +71,7 @@ A: The app is free to download. Payments are direct from customer's wallet to me
 
 == Screenshots ==
 
-1. User setup
+1. User setup screenshot-1.png
 
-2. Customer Workflow
+2. Customer Workflow screenshot-2.png
 
