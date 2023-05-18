@@ -4,7 +4,7 @@ Tags: bitcoin, payments, BSV, crypto, e-commerce, ecommerce, business, store, DA
 Requires PHP: 5.6
 Requires at least: 4.0
 Tested up to: 6.2.1
-Stable tag: 1.0.1
+Stable tag: 0.6.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,11 @@ What is the cost?
 A: The app is free to download. Payments are direct from customer's wallet to merchant's wallet. All payments are "multi-output" meaning they are split. 99.9% of a payment goes to the merchant. 
 
 == Changelog == 
+
+= 0.6.2 =
+
+  - Replaced checkout image
+  - Echoed out variables
 
 = 0.6.1 = 
 
