@@ -7,7 +7,7 @@ Tested up to: 6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-== Frequently Asked Questions == 
+== Frequently Asked Questions ==
 
 Can I use this plugin to accept payments on my WordPress site in multiple different cryptocurrencies?
 
@@ -15,11 +15,19 @@ A: Yes.
 
 What is the cost?
 
-A: The app is free to download. Payments are direct from customer's wallet to merchant's wallet. All payments are "multi-output" meaning they are split. 99.9% of a payment goes to the merchant. 
+A: The app is free to download. Payments are direct from customer's wallet to merchant's wallet. All payments are "multi-output" meaning they are split. 99.9% of a payment goes to the merchant.
 
-== Changelog == 
+== Changelog ==
 
-= 0.6.1 = 
+= 0.7.0 =
+
+  - Fix and migrate plugin to use Anypay API keys instead of emails
+
+= 0.6.2 =
+
+  - Escape some user variables before echo out
+
+= 0.6.1 =
 
   - Updated API endpoint
 
@@ -53,15 +61,15 @@ A: The app is free to download. Payments are direct from customer's wallet to me
   - Update README and descriptions to reflect multi-coin support
   - Correct version number for upgrades
 
-= 0.1.1 = 
- 
+= 0.1.1 =
+
  - 32 X 32 payment icon.
  - Rename option at checkout to be Anypay ( Bitcoin SV )
 
 = 0.1.0 =
 
  - Initial Revision.
- - Rename anypay_address to just be address. 
+ - Rename anypay_address to just be address.
 
 == Screenshots ==
 
