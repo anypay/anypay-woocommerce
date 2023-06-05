@@ -235,7 +235,7 @@ function init_anypay_gateway_class() {
         'title' => 'Anypay API key',
         'type' => 'text',
         'description' => 'All payments will be sent to the coin addresses you set on your Anypay account. No
-        account? <a target="_blank" href="https://anypayx.com/auth/register/">Register for free</a>', // TODO
+        account? <a target="_blank" href="https://anypayx.com/auth/register/">Register for free</a>',
         'default' => ''
         ),
 	  );
