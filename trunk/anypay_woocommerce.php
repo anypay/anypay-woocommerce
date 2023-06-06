@@ -69,9 +69,7 @@ add_action( 'plugins_loaded', 'init_anypay_gateway_class' );
 function init_anypay_gateway_class() {
 
   class WC_Gateway_Anypay extends WC_Payment_Gateway {
-
     public function __construct() {
-
       $settings = $this->get_option('woocommerce_anypay_settings');
       $account_id = $settings->account_id;
 
@@ -85,8 +83,8 @@ function init_anypay_gateway_class() {
       $this->method_description = sprintf( 'Simple Bitcoin Checkout for WordPress.' );
       $this->supports = array('products');
 
-     	// Load the settings.
-	    $this->init_form_fields();
+      // Load the settings.
+	  $this->init_form_fields();
       $this->init_settings();
 
       add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -98,7 +96,6 @@ function init_anypay_gateway_class() {
 
 
     function admin_options() {
-
      ?>
        <h2><?php _e('Anypay Payment Gateway Settings','woocommerce'); ?></h2>
        <table class="form-table">
@@ -107,9 +104,7 @@ function init_anypay_gateway_class() {
 
     }
 
-
     public function handle_callback() {
-
       $raw_post = file_get_contents( 'php://input' );
 
 	  $decoded  = json_decode( $raw_post );
@@ -118,13 +113,13 @@ function init_anypay_gateway_class() {
 
       $safe_uid = sanitize_text_field($decoded->uid);
 
-      if(strlen($safe_uid) > 36 ){
+      if (strlen($safe_uid) > 36 ) {
         $safe_uid = substr( $safe_uid, 0 , 36);
       }
 
       $safe_hash = sanitize_text_field($decoded->hash);
 
-      if(strlen($safe_hash) > 64){
+      if (strlen($safe_hash) > 64) {
         $safe_hash = substr($safe_hash, 0, 64);
       }
 
@@ -132,24 +127,21 @@ function init_anypay_gateway_class() {
 
       $safe_output_hash = sanitize_text_field($decoded->output_hash);
 
-      if(strlen($safe_output_hash) > 64){
+      if (strlen($safe_output_hash) > 64) {
         $safe_output_hash = substr($safe_output_hash, 0, 64);
       }
 
       $safe_external_id = intval($decoded->external_id);
 
-      if($decoded->status === 'paid'){
-
+      if ($decoded->status === 'paid') {
         $order = wc_get_order( $safe_external_id  );
 
         $order->payment_complete($safe_uid);
-
       }
 
       $this->anypay_updateInvoice($safe_uid, $safe_hash, $safe_status, $safe_invoice_amount_paid, $safe_output_hash);
 
       exit();
-
 	}
 
   /**
@@ -163,13 +155,10 @@ function init_anypay_gateway_class() {
       $my_string = 'Save Settings';
       do_action( 'php_console_log', $my_string );
 
-
       $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
-      if( !$anypay_settings ){
-
+      if (!$anypay_settings) {
         $anypay_settings = array();
-
       }
 
       $api_key =  esc_attr($_POST['woocommerce_wc_gateway_anypay_api_key']);
@@ -177,59 +166,13 @@ function init_anypay_gateway_class() {
 
       $anypay_settings['api_key'] = $api_key;
 
-//       $url = 'https://api.anypayx.com/accounts/' . $email ;
-//
-//       $result = wp_remote_get( $url );
-//
-//       if( $result['response']['code'] === 200 ){
-//         echo '<script>console.log("' . esc_attr( $url ) . '")</script>';
-//
-//         $body = wp_remote_retrieve_body( $result );
-//
-//         echo '<script>console.log("BODY:")</script>';
-//         echo '<script>console.log("' . esc_attr( $body ) . '")</script>';
-//
-//         $account = json_decode($body);
-//
-//         echo '<script>console.log("' . esc_attr( $account->id ) . '")</script>';
-//
-//         echo '<script>console.log("ANYPAY ACCOUNT CODE' .
-//         esc_attr( $result['response']['code'] ) . '")</script>';
-//
-//         echo '<script>console.log("ANYPAY EMAIL' . esc_attr( $email ) . '")</script>';
-//         $anypay_settings['email'] = $body->email;
-//         echo '<script>console.log("ANYPAY ID: ' . esc_attr( $account->id ) . '")</script>';
-//         $anypay_settings['account_id'] = $account->id;
-//         $anypay_settings['coins'] = $body->coins;
-//
-//         $this->update_option('anypay_account_id', $account->id);
-//         $this->update_option('woocommerce_anypay_settings', $anypay_settings);
-//         echo '<script>console.log("Settings: ' . esc_attr( $anypay_settings ) . '")</script>';
-//
-//       } else if( $result['response']['code'] === 404 ){
-//         // not found
-//         echo '<script>console.log("ANYPAY ACCOUNT NOT FOUND")</script>';
-//         //$error_message = 'Anypay Account Not Found!'
-//         echo '<script>alert("ANYPAY ACCOUNT NOT FOUND")</script>';
-//         $anypay_settings['email'] = null;
-//
-//         unset($_POST);
-//
-//       } else {
-//
-//         echo '<script>console.log("ANYPAY ERROR")</script>';
-//
-//       }
-
       $this->update_option('woocommerce_anypay_settings', $anypay_settings);
-
     }
 
     /**
 	 * Initialise Gateway Settings Form Fields.
      */
 	function init_form_fields() {
-
      $this->form_fields = array(
         'api_key' => array(
         'title' => 'Anypay API key',
@@ -242,181 +185,136 @@ function init_anypay_gateway_class() {
      }
 
      public function payment_fields() {
-
        $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
-            try {
+       try {
+         $coins = $anypay_settings['coins'];
 
-                $coins = $anypay_settings['coins'];
+         echo '<script>console.log("Coins: ' . esc_attr( $anypay_settings['coins'] ) . '")</script>';
 
-                echo '<script>console.log("Coins: ' . esc_attr( $anypay_settings['coins'] ) . '")</script>';
+         //echo '<p class="pwe-eth-pricing-note"><strong>';
 
-                //echo '<p class="pwe-eth-pricing-note"><strong>';
+         //printf( __( 'Payment available in %s', implode(', ', $coins) ), $response );
 
-                //printf( __( 'Payment available in %s', implode(', ', $coins) ), $response );
-
-                //echo '</p></strong>';
-
-            } catch ( \Exception $e ) {
-
-            echo '<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">';
-
-            echo '<ul class="woocommerce-error">';
-
-            echo '<li>';
-
-            _e(
-                'Unable to provide an order value in BSV at this time.',
-                'anypay'
-            );
-
-            echo '</li>';
-
-            echo '</ul>';
-
-            echo '</div>';
-
-      }
-
+         //echo '</p></strong>';
+        } catch ( \Exception $e ) {
+        echo '<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">';
+        echo '<ul class="woocommerce-error">';
+        echo '<li>';
+        _e(
+            'Unable to provide an order value in BSV at this time.',
+            'anypay'
+        );
+        echo '</li>';
+        echo '</ul>';
+        echo '</div>';
+        }
     }
 
-//     public function anypay_coins($email){
-//
-//        echo '<script>console.log("Email: ' . esc_attr( $email ) . '")</script>';
-//
-//        $response = wp_remote_get("https://api.anypayx.com/accounts/{$email}");
-//
-//        $coins =  json_decode($response['body'])->coins;
-//
-//        return  $coins;
-//
-//     }
-
     function process_payment( $order_id ) {
+      global $woocommerce;
 
-       global $woocommerce;
+      $anypay_settings = $this->get_option('woocommerce_anypay_settings');
 
-       $anypay_settings = $this->get_option('woocommerce_anypay_settings');
-
-       $order = new WC_Order( $order_id );
+      $order = new WC_Order( $order_id );
 
       $api_key = esc_attr( $anypay_settings['api_key'] );
 
-       $args = array(
-         'body' => array(
-           'amount' =>(float) $order->get_total(),
-           //'currency' => 'BSV',
-           'redirect_url' => $this->get_return_url( $order ),
-           'webhook_url' => home_url('/?wc-api=wc_gateway_anypay'),
-           'external_id' => $order->get_id(),
-           'wordpress_site_url' => get_site_url()
-         ),
-         'headers' => array(
-            'Authorization' => 'Basic ' . base64_encode( $api_key . ':'),
-            'Content-Type' => 'application/x-www-form-urlencoded'
-          )
-       );
+      $args = array(
+        'body' => array(
+        'amount' =>(float) $order->get_total(),
+        'redirect_url' => $this->get_return_url( $order ),
+        'webhook_url' => home_url('/?wc-api=wc_gateway_anypay'),
+        'external_id' => $order->get_id(),
+        'wordpress_site_url' => get_site_url()
+      ),
+      'headers' => array(
+        'Authorization' => 'Basic ' . base64_encode( $api_key . ':'),
+        'Content-Type' => 'application/x-www-form-urlencoded'
+        )
+      );
 
-       $url = 'https://api.anypayx.com/invoices';
+      $url = 'https://api.anypayx.com/invoices';
 
-       $result = wp_remote_post( $url, $args );
+      $result = wp_remote_post( $url, $args );
 
-       if ($result['response']['code'] === 200 ) {
-            // Mark as on-hold (awaiting the bitcoin payment)
-           $order->update_status('pending-payment', __( 'Awaiting bitcoin payment', 'woocommerce' ));
+      if ($result['response']['code'] === 200 ) {
+        // Mark as on-hold (awaiting the bitcoin payment)
+        $order->update_status('pending-payment', __( 'Awaiting bitcoin payment', 'woocommerce' ));
 
-           // Remove cart
-           $woocommerce->cart->empty_cart();
+        // Remove cart
+        $woocommerce->cart->empty_cart();
 
-             $body = json_decode($result['body']);
-             $success = $body->success;
-              $invoice = $body->invoice;
+        $body = json_decode($result['body']);
+        $success = $body->success;
+        $invoice = $body->invoice;
 
-           if ($success) {
-             $safe_status = sanitize_text_field($invoice->status);
-             $safe_uid = sanitize_text_field($invoice->uid);
+        if ($success) {
+          $safe_status = sanitize_text_field($invoice->status);
+          $safe_uid = sanitize_text_field($invoice->uid);
 
+          $safe_account_id = intval($invoice->account_id);
 
-             $safe_account_id = intval($invoice->account_id);
+          $safe_amount = floatval($invoice->amount);
 
-             $safe_amount = floatval($invoice->amount);
+          $safe_currency = sanitize_text_field($invoice->currency);
 
-             $safe_currency = sanitize_text_field($invoice->currency);
+          $safe_denomination_currency = sanitize_text_field($invoice->denomination_currency);
 
-             $safe_denomination_currency = sanitize_text_field($invoice->denomination_currency);
+          $this->anypay_createInvoice( $order->get_id(), $safe_uid, $safe_account_id, $safe_amount, $safe_currency, $safe_status, $safe_denomination_currency);
 
-             $this->anypay_createInvoice( $order->get_id(), $safe_uid, $safe_account_id, $safe_amount, $safe_currency, $safe_status, $safe_denomination_currency);
-
-           return array(
-            'result'   => 'success',
-            'redirect' => 'https://anypayx.com/i/' . $safe_uid
-           );
-         }
+          return array(
+           'result'   => 'success',
+           'redirect' => 'https://anypayx.com/i/' . $safe_uid
+          );
+        }
       }
     }
 
-    public function anypay_createInvoice($order_id, $uid, $account_id, $amount, $currency, $status, $denomination){
-
+    public function anypay_createInvoice($order_id, $uid, $account_id, $amount, $currency, $status, $denomination) {
      global $wpdb;
 
      $invoice_table = $wpdb->prefix . 'woocommerce_anypay_invoices';
 
-     if(!is_null($order_id)){
-
+     if (!is_null($order_id)) {
        $order_id = esc_sql($order_id);
-
      }
 
-     if( !is_null($uid) ){
-
+     if (!is_null($uid)) {
        $uid = esc_sql($uid);
-
      }
 
-     if( !is_null($account_id) ){
-
+     if(!is_null($account_id)){
        $account_id = esc_sql($account_id);
-
      }
 
-     if( !is_null($amount) ){
-
+     if(!is_null($amount)) {
        $amount = esc_sql($amount);
-
      }
 
-     if(!is_null($currency) ){
-
+     if(!is_null($currency)) {
        $currency = esc_sql($currency);
-
      }
 
-     if(!is_null($status) ){
-
+     if (!is_null($status)){
        $status = esc_sql($status);
-
      }
 
-     if(!is_null($denomination)){
-
+     if (!is_null($denomination)) {
        $denomination = esc_sql($denomination);
-
      }
 
      return $wpdb->insert($invoice_table, array(
-                'uid' => $uid,
-                'account_id' => $account_id,
-                'status' => $status,
-                'order_id' => $order_id,
-                'amount' => $amount,
-                'denomination' => $denomination,
-                'currency' => $currency
-            ));
-
+       'uid' => $uid,
+       'account_id' => $account_id,
+       'status' => $status,
+       'order_id' => $order_id,
+       'amount' => $amount,
+       'denomination' => $denomination,
+       'currency' => $currency));
     }
 
-    public function anypay_updateInvoice($where_uid, $hash, $status, $amount_paid, $output_hash){
-
+    public function anypay_updateInvoice($where_uid, $hash, $status, $amount_paid, $output_hash) {
      global $wpdb;
 
      $invoices_table = $wpdb->prefix . 'woocommerce_anypay_invoices';
@@ -428,34 +326,30 @@ function init_anypay_gateway_class() {
        $where_uid = esc_sql($where_uid);
      }
 
-     if( !is_null($status)){
+     if (!is_null($status)) {
        $status = esc_sql($status);
-
      }
 
-     if( !is_null($amount_paid)){
+     if (!is_null($amount_paid)) {
        $amount_paid = esc_sql($amount_paid);
      }
 
-     if( !is_null($output_hash)){
+     if (!is_null($output_hash)) {
        $output_hash = esc_sql($output_hash);
      }
 
      $update_query = array(
-             'hash' => $hash,
-             'status' => $status,
-             'amount_paid' => $amount_paid,
-             'output_hash' => $output_hash
+       'hash' => $hash,
+       'status' => $status,
+       'amount_paid' => $amount_paid,
+       'output_hash' => $output_hash
      );
 
      $where = array(
-             'uid' => $where_uid
+       'uid' => $where_uid
      );
 
      return $wpdb->update($invoices_table, $update_query, $where);
-
    }
-
   }
-
 }
