@@ -144,7 +144,7 @@ function init_anypay_gateway_class() {
       exit();
 	}
 
-  /**
+    /**
 	 * Processes and saves options.
 	 * If there is an error thrown, will continue to save and validate fields, but will leave the erroring field out.
 	 *
