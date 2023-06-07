@@ -21,7 +21,8 @@ A: The app is free to download. Payments are direct from customer's wallet to me
 
 = 0.7.0 =
 
-  - Fix and migrate plugin to use Anypay API keys instead of emails
+  - Fix plugin (Error to process checkout)
+  - Migrate plugin to use Anypay API keys instead of emails
 
 = 0.6.2 =
 
