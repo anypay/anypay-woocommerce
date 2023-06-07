@@ -1,6 +1,6 @@
 {
     "name": "anypay/woocommerce",
-    "description": "Simple Bitcoin Checkout for WordPress. Instant. Peer-to-peer.",
+    "description": "Bitcoin and multi-coin checkout for e-commerce stores.",
     "authors": [
         {
             "name": "AnypayX",
