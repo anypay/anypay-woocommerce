@@ -7,7 +7,7 @@
  * Description: Bitcoin and multi-coin checkout for e-commerce stores.
  * Author: Anypay
  * Author URI: https://anypayx.com
- * Contributors: owenkellogg, brandonbryant, eddiewillers
+ * Contributors: owenkellogg, brandonbryant, eddiewillers, pshenmic
  * Tags: bitcoin, payments, BSV
  * Requires PHP: 5.6
  * Requires at least: 4.0
